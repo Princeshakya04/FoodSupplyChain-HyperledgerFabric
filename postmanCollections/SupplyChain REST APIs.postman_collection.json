@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "b61a0e33-4f27-441a-b074-b4c1188a6100",
+		"name": "SupplyChain REST APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"accessToken\", jsonData.data.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\" : \"User10\",\n    \"password\": \"Secure@123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/user/signin/middlemen",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"signin",
+						"middlemen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userType\": \"retailer\", \n    \"address\": \"Noida Sector 1 Greater Noida West\", \n    \"name\": \"First Retailer\", \n    \"email\": \"hrajput910@gmail.com\", \n    \"password\": \"Secure@123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/user/signup/middlemen",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"signup",
+						"middlemen"
+					]
+				},
+				"description": "Add a new User"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product - Product Can be added only by Manufacturer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Grains\",\n    \"price\": 5500\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/product",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/user/all/manufacturer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"all",
+						"manufacturer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order - Can only be created by a consumer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\" : \"Product4\",\n    \"consumerId\": \"User7\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/product/order",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"product",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transact Product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": \"Product4\",\n    \"userId\": \"User10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/transact",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"transact"
+					]
+				},
+				"description": "Manufacturer will send to Wholesaler \\n\nWholesaler will send to Distributor \\n\nDistributor will send to Retailer"
+			},
+			"response": []
+		},
+		{
+			"name": "Transact Product To Consumer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{accessToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": \"Product4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/transact/consumer",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"transact",
+						"consumer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deliver to Consumer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{accessToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": \"Product4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/product/delivered",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"product",
+						"delivered"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

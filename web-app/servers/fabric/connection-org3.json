@@ -1,0 +1,62 @@
+{
+    "name": "test-network-org3",
+    "version": "1.0.0",
+    "client": {
+        "organization": "Org3",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                }
+            }
+        }
+    },
+    "organizations": {
+        "Org3": {
+            "mspid": "Org3MSP",
+            "peers": [
+                "peer0.org3.fsc.com",
+                "peer1.org3.fsc.com"
+            ],
+            "certificateAuthorities": [
+                "ca.org3.fsc.com"
+            ]
+        }
+    },
+    "peers": {
+        "peer0.org3.fsc.com": {
+            "url": "grpcs://localhost:11051",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICGDCCAb+gAwIBAgIULbsg5qy8CYF5ycTA+QAlQwce8UgwCgYIKoZIzj0EAwIw\naTELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRAwDgYDVQQH\nEwdSYWxlaWdoMRUwEwYDVQQKEwxvcmczLmZzYy5jb20xGDAWBgNVBAMTD2NhLm9y\nZzMuZnNjLmNvbTAeFw0yMjA4MjAxMzA0MDBaFw0zNzA4MTYxMzA0MDBaMGkxCzAJ\nBgNVBAYTAlVTMRcwFQYDVQQIEw5Ob3J0aCBDYXJvbGluYTEQMA4GA1UEBxMHUmFs\nZWlnaDEVMBMGA1UEChMMb3JnMy5mc2MuY29tMRgwFgYDVQQDEw9jYS5vcmczLmZz\nYy5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASJZKB8UpqgOs8mwZuCOTYQ\nYgie0bKyejwJ3AhAskNuxNOLSycR1J6cT/DmTsr/dqLlLwHBHSvpF7u3F6FUt78O\no0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNVHQ4E\nFgQUG0R71H8tH1+wvdFS08tUlfCb4RwwCgYIKoZIzj0EAwIDRwAwRAIgM+bm0mIW\nEnmVrKbFdUYMRmCZRbpVBeZZ/2vHevl7WVICIFo7F173VrQzE+uCM15QRy93z/SF\nA24D1WHoDIpxZvoG\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer0.org3.fsc.com",
+                "hostnameOverride": "peer0.org3.fsc.com"
+            }
+        },
+        "peer1.org3.fsc.com": {
+            "url": "grpcs://localhost:4051",
+            "tlsCACerts": {
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICGDCCAb+gAwIBAgIULbsg5qy8CYF5ycTA+QAlQwce8UgwCgYIKoZIzj0EAwIw\naTELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRAwDgYDVQQH\nEwdSYWxlaWdoMRUwEwYDVQQKEwxvcmczLmZzYy5jb20xGDAWBgNVBAMTD2NhLm9y\nZzMuZnNjLmNvbTAeFw0yMjA4MjAxMzA0MDBaFw0zNzA4MTYxMzA0MDBaMGkxCzAJ\nBgNVBAYTAlVTMRcwFQYDVQQIEw5Ob3J0aCBDYXJvbGluYTEQMA4GA1UEBxMHUmFs\nZWlnaDEVMBMGA1UEChMMb3JnMy5mc2MuY29tMRgwFgYDVQQDEw9jYS5vcmczLmZz\nYy5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASJZKB8UpqgOs8mwZuCOTYQ\nYgie0bKyejwJ3AhAskNuxNOLSycR1J6cT/DmTsr/dqLlLwHBHSvpF7u3F6FUt78O\no0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNVHQ4E\nFgQUG0R71H8tH1+wvdFS08tUlfCb4RwwCgYIKoZIzj0EAwIDRwAwRAIgM+bm0mIW\nEnmVrKbFdUYMRmCZRbpVBeZZ/2vHevl7WVICIFo7F173VrQzE+uCM15QRy93z/SF\nA24D1WHoDIpxZvoG\n-----END CERTIFICATE-----\n"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer1.org3.fsc.com",
+                "hostnameOverride": "peer1.org3.fsc.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.org3.fsc.com": {
+            "url": "https://localhost:11054",
+            "caName": "ca-org3",
+            "tlsCACerts": {
+                "pem": [
+                    "-----BEGIN CERTIFICATE-----\nMIICGDCCAb+gAwIBAgIULbsg5qy8CYF5ycTA+QAlQwce8UgwCgYIKoZIzj0EAwIw\naTELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRAwDgYDVQQH\nEwdSYWxlaWdoMRUwEwYDVQQKEwxvcmczLmZzYy5jb20xGDAWBgNVBAMTD2NhLm9y\nZzMuZnNjLmNvbTAeFw0yMjA4MjAxMzA0MDBaFw0zNzA4MTYxMzA0MDBaMGkxCzAJ\nBgNVBAYTAlVTMRcwFQYDVQQIEw5Ob3J0aCBDYXJvbGluYTEQMA4GA1UEBxMHUmFs\nZWlnaDEVMBMGA1UEChMMb3JnMy5mc2MuY29tMRgwFgYDVQQDEw9jYS5vcmczLmZz\nYy5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAASJZKB8UpqgOs8mwZuCOTYQ\nYgie0bKyejwJ3AhAskNuxNOLSycR1J6cT/DmTsr/dqLlLwHBHSvpF7u3F6FUt78O\no0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNVHQ4E\nFgQUG0R71H8tH1+wvdFS08tUlfCb4RwwCgYIKoZIzj0EAwIDRwAwRAIgM+bm0mIW\nEnmVrKbFdUYMRmCZRbpVBeZZ/2vHevl7WVICIFo7F173VrQzE+uCM15QRy93z/SF\nA24D1WHoDIpxZvoG\n-----END CERTIFICATE-----\n"
+                ]
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}
