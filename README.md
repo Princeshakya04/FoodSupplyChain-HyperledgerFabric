@@ -15,7 +15,7 @@ This will generate 2 orgs with 2 peers....
 ```
 
 ## Installing chaincode on new peer1 org1 
-
+```
   - export CORE_PEER_TLS_ENABLED=true
 
   - export CC_NAME=iac_chaincode
@@ -37,9 +37,10 @@ This will generate 2 orgs with 2 peers....
   - CORE_PEER_ADDRESS=localhost:8051 peer chaincode invoke -n iac_chaincode -C supplychainchannel -o localhost:7050 --ordererTLSHostnameOverride orderer.fsc.com  --tls --cafile ${PWD}/organizations/ordererOrganizations/fsc.com/orderers/orderer.fsc.com/msp/tlscacerts/tlsca.fsc.com-cert.pem --peerAddresses localhost:8051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org1.fsc.com/peers/peer1.org1.fsc.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org2.fsc.com/peers/peer0.org2.fsc.com/tls/ca.crt  -c '{"Args":["createUser","admin","admin@admin.com","admin","Noida India", "adminpw"]}'
 
   - CORE_PEER_ADDRESS=localhost:8051 peer chaincode invoke -n iac_chaincode -C supplychainchannel -o localhost:7050 --ordererTLSHostnameOverride orderer.fsc.com  --tls --cafile ${PWD}/organizations/ordererOrganizations/fsc.com/orderers/orderer.fsc.com/msp/tlscacerts/tlsca.fsc.com-cert.pem --peerAddresses localhost:8051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org1.fsc.com/peers/peer1.org1.fsc.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org2.fsc.com/peers/peer0.org2.fsc.com/tls/ca.crt  -c '{"Args":["createUser","admin","admin@admin.com","manufacturer","Noida India", "Secure@123"]}'
-
+```
 
 ## Installing chaincode on new peer1 org2
+```
   - export CORE_PEER_TLS_ENABLED=true
 
   - export CORE_PEER_LOCALMSPID="Org2MSP"
@@ -59,6 +60,8 @@ This will generate 2 orgs with 2 peers....
   - peer lifecycle chaincode queryinstalled
 
   - CORE_PEER_ADDRESS=localhost:5051 peer chaincode invoke -n iac_chaincode -C supplychainchannel -o localhost:7050 --ordererTLSHostnameOverride orderer.fsc.com  --tls --cafile ${PWD}/organizations/ordererOrganizations/fsc.com/orderers/orderer.fsc.com/msp/tlscacerts/tlsca.fsc.com-cert.pem --peerAddresses localhost:5051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org2.fsc.com/peers/peer1.org2.fsc.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org2.fsc.com/peers/peer0.org2.fsc.com/tls/ca.crt  -c '{"Args":["createUser","admin","admin@admin.com","consumer","Noida, India", "adminpw"]}'
+
+```
 
 ## Add Org3
 ```
@@ -93,6 +96,7 @@ This will generate 2 orgs with 2 peers....
 ```
 
 ## Deploy chaincode on peer1 org3
+```
   - export CORE_PEER_TLS_ENABLED=true
 
   - export CORE_PEER_LOCALMSPID="Org3MSP"
@@ -108,8 +112,10 @@ This will generate 2 orgs with 2 peers....
   - peer lifecycle chaincode queryinstalled
 
   - CORE_PEER_ADDRESS=localhost:4051 peer chaincode invoke -n iac_chaincode -C supplychainchannel -o localhost:7050 --ordererTLSHostnameOverride orderer.fsc.com  --tls --cafile ${PWD}/organizations/ordererOrganizations/fsc.com/orderers/orderer.fsc.com/msp/tlscacerts/tlsca.fsc.com-cert.pem --peerAddresses localhost:4051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org3.fsc.com/peers/peer1.org3.fsc.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/org2.fsc.com/peers/peer0.org2.fsc.com/tls/ca.crt  -c '{"Args":["createUser","admin","admin@admin.com","retailer","Noida, India", "adminpw"]}'
+```
 
 ## Setup for web-app servers and client 
+```
   - Open a new terminal
   - cd web-app/servers
   - npm install 
@@ -119,12 +125,17 @@ This will generate 2 orgs with 2 peers....
   - npm install 
   - npm start
 
+```
+
 ## If doing setup for the first time then 
+```
   - Update Certificates of web-app/servers/fabric/connection-org1.json from organization/peerOrganizations/org1.fsc.com/connection-org1.json, copy the certificates of "pem" parameter only.  
   - Update Certificates of web-app/servers/fabric/connection-org2.json from organization/peerOrganizations/org2.fsc.com/connection-org2.json, copy the certificates of "pem" parameter only. 
   - Update Certificates of web-app/servers/fabric/connection-org3.json from organization/peerOrganizations/org3.fsc.com/connection-org3.json, copy the certificates of "pem" parameter only.
+```
   
-## Supply chain flow
+## Supply chain 
+```
   1. Login with admin user..
   2. Create a Manufacturer user by login to admin.
   3. Login with the created manufacturer user.
@@ -139,4 +150,6 @@ This will generate 2 orgs with 2 peers....
   12. Login with consumer to create a product order.
   13. Login with retailer to sell the product to consumer.
   14. Login with retailer to mark the product as delivered.
+
+```
 
