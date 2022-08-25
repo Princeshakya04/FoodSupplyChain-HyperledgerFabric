@@ -1,0 +1,77 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: "2"
+
+volumes:
+  couchdb5:
+  peer1.org3.fsc.com:
+
+networks:
+  test:
+
+services:
+
+  couchdb5:
+    container_name: couchdb5
+    image: couchdb:3.1.1
+    # Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password
+    # for CouchDB.  This will prevent CouchDB from operating in an "Admin Party" mode.
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=adminpw
+    # Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,
+    # for example map it to utilize Fauxton User Interface in dev environments.
+    ports:
+      - "12984:5984"
+    networks:
+      - test
+
+  peer1.org3.fsc.com:
+    container_name: peer1.org3.fsc.com
+    image: hyperledger/fabric-peer:latest
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      # the following setting starts chaincode containers on the same
+      # bridge network as the peers
+      # https://docs.docker.com/compose/networking/
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_test
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      # Peer specific variabes
+      - CORE_PEER_ID=peer1.org3.fsc.com
+      - CORE_PEER_ADDRESS=peer1.org3.fsc.com:4051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:4051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.org3.fsc.com:4052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:4052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org3.fsc.com:4051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org3.fsc.com:4051
+      - CORE_PEER_LOCALMSPID=Org3MSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb5:5984
+      # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
+      # provide the credentials for ledger to connect to CouchDB.  The username and password must
+      # match the username and password set for the associated CouchDB.
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+    volumes:
+        - /var/run/docker.sock:/host/var/run/docker.sock
+        - ../organizations/peerOrganizations/org3.fsc.com/peers/peer1.org3.fsc.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/org3.fsc.com/peers/peer1.org3.fsc.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.org3.fsc.com:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 4051:4051
+    networks:
+      - test
+    depends_on:
+      - couchdb5
